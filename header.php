@@ -21,105 +21,80 @@
 
 		<a class="skip-link button" href="#site-content"><?php _e( 'Skip to the content', 'fukasawa' ); ?></a>
 	
+		<header class="site-header">
+			<div class="site-header-inner">
+				
+				<div class="site-branding">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="logo-link">
+						<?php
+						$custom_logo_id = get_theme_mod( 'custom_logo' );
+						if ( $custom_logo_id ) {
+							$logo_url = wp_get_attachment_image_url( $custom_logo_id, 'full' );
+							echo '<img src="' . esc_url( $logo_url ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" class="cmi-logo-img" />';
+						} else {
+							// Sleek, premium CMI badge logo
+							echo '<div class="cmi-logo-badge">CMI</div>';
+						}
+						?>
+						<div class="site-title-group">
+							<span class="site-title-main"><?php bloginfo( 'name' ); ?></span>
+							<span class="site-title-sub"><?php _e( 'Student Blogs', 'fukasawa' ); ?></span>
+						</div>
+					</a>
+				</div><!-- .site-branding -->
+
+				<button type="button" class="nav-toggle" aria-label="Toggle navigation menu">
+					<div class="bars">
+						<div class="bar"></div>
+						<div class="bar"></div>
+						<div class="bar"></div>
+					</div>
+				</button>
+
+				<nav class="main-navigation">
+					<ul class="main-menu">
+						<?php 
+						if ( has_nav_menu( 'primary' ) ) {
+							wp_nav_menu( array( 
+								'container' 		=> '', 
+								'echo'				=> true,
+								'items_wrap' 		=> '%3$s',
+								'theme_location' 	=> 'primary'
+							) );
+						} else {
+							wp_list_pages( array(
+								'container' => '',
+								'title_li' 	=> ''
+							) );
+						} 
+						?>
+					</ul>
+				</nav>
+
+			</div><!-- .site-header-inner -->
+		</header><!-- .site-header -->
+
 		<div class="mobile-navigation">
-	
 			<ul class="mobile-menu">
-						
 				<?php 
 				if ( has_nav_menu( 'primary' ) ) {
-																	
 					$primary_nav = wp_nav_menu( array( 
 						'container' 		=> '', 
 						'echo'				=> false,
 						'items_wrap' 		=> '%3$s',
 						'theme_location' 	=> 'primary'
 					) );
-
 					echo $primary_nav;
-
 				} else {
-
 					$pages_list = wp_list_pages( array(
 						'container' => '',
 						'echo'		=> false,
 						'title_li' 	=> ''
 					) );
-
 					echo $pages_list;
-					
 				} 
 				?>
-				
 			 </ul>
-		 
 		</div><!-- .mobile-navigation -->
-	
-		<div class="sidebar">
-		
-			<?php 
 
-			// Use a h1 element on the front page and/or the index of the blog, and a div elsewhere
-			if ( is_front_page() || is_home() ) {
-				$blog_title_elem = 'h1';
-			} else {
-				$blog_title_elem = 'div';
-			}
-
-			$custom_logo_id 	= get_theme_mod( 'custom_logo' );
-			$legacy_logo_url 	= get_theme_mod( 'fukasawa_logo' );
-
-			if ( $custom_logo_id || $legacy_logo_url ) : 
-
-				$custom_logo_url = $custom_logo_id ? wp_get_attachment_image_url( $custom_logo_id, 'full' ) : $legacy_logo_url;
-			
-				?>
-			
-		        <<?php echo $blog_title_elem; ?> class="blog-logo">
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-		        		<img src="<?php echo esc_url( $custom_logo_url ); ?>" />
-					</a>
-					<span class="screen-reader-text"><?php echo get_bloginfo( 'title' ); ?></span>
-		        </<?php echo $blog_title_elem; ?>>
-		
-			<?php elseif ( get_bloginfo( 'description' ) || get_bloginfo( 'title' ) ) : ?>
-		
-				<<?php echo $blog_title_elem; ?> class="blog-title">
-					<a href="<?php echo esc_url( home_url() ); ?>" rel="home"><?php echo get_bloginfo( 'title' ); ?></a>
-				</<?php echo $blog_title_elem; ?>>
-				
-			<?php endif; ?>
-			
-			<button type="button" class="nav-toggle">
-			
-				<div class="bars">
-					<div class="bar"></div>
-					<div class="bar"></div>
-					<div class="bar"></div>
-				</div>
-				
-				<p>
-					<span class="menu"><?php _e( 'Menu', 'fukasawa' ); ?></span>
-					<span class="close"><?php _e( 'Close', 'fukasawa' ); ?></span>
-				</p>
-			
-			</button>
-			
-			<ul class="main-menu">
-				<?php echo isset( $primary_nav ) ? $primary_nav : $pages_list; ?>
-			</ul><!-- .main-menu -->
-
-			<?php if ( is_active_sidebar( 'sidebar' ) ) : ?>
-				<div class="widgets">
-					<?php dynamic_sidebar( 'sidebar' ); ?>
-				</div><!-- .widgets -->
-			<?php endif; ?>
-
-			<div class="credits">
-				<p>&copy; <?php echo date( 'Y' ); ?> <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>.</p>
-				<p><?php _e( 'Powered by', 'fukasawa' ); ?> <a href="https://wordpress.org">WordPress</a>.</p>
-				<p><?php _e( 'Theme by', 'fukasawa' ); ?> <a href="https://andersnoren.se">Anders Nor&eacute;n</a>.</p>
-			</div><!-- .credits -->
-							
-		</div><!-- .sidebar -->
-	
 		<main class="wrapper" id="site-content">

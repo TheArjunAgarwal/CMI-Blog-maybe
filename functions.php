@@ -109,6 +109,9 @@ if ( ! function_exists( 'fukasawa_load_style' ) ) :
 			wp_register_style( 'fukasawa_genericons', get_theme_file_uri( '/assets/fonts/genericons/genericons.css' ) );
 			$dependencies[] = 'fukasawa_genericons';
 
+			wp_register_style( 'cmi_googleFonts', 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap' );
+			$dependencies[] = 'cmi_googleFonts';
+
 			wp_enqueue_style( 'fukasawa_style', get_stylesheet_uri(), $dependencies, fukasawa_get_version() );
 		}
 
@@ -562,3 +565,140 @@ if ( ! function_exists( 'fukasawa_block_editor_styles' ) ) :
 	}
 	add_action( 'enqueue_block_editor_assets', 'fukasawa_block_editor_styles', 1 );
 endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+   CMI CUSTOM POST VIEWS TRACKING
+   --------------------------------------------------------------------------------------------- */
+
+function cmi_track_post_views() {
+	if ( ! is_single() ) {
+		return;
+	}
+	$post_id = get_the_ID();
+	if ( ! $post_id ) {
+		return;
+	}
+	$count_key = 'cmi_post_views';
+	$count = get_post_meta( $post_id, $count_key, true );
+	if ( $count === '' ) {
+		$count = 0;
+		delete_post_meta( $post_id, $count_key );
+		add_post_meta( $post_id, $count_key, '0' );
+	} else {
+		$count++;
+		update_post_meta( $post_id, $count_key, $count );
+	}
+}
+add_action( 'wp_head', 'cmi_track_post_views' );
+
+function cmi_get_post_views( $post_id ) {
+	$count_key = 'cmi_post_views';
+	$count = get_post_meta( $post_id, $count_key, true );
+	if ( $count === '' ) {
+		delete_post_meta( $post_id, $count_key );
+		add_post_meta( $post_id, $count_key, '0' );
+		return '0';
+	}
+	return $count;
+}
+
+
+/* ---------------------------------------------------------------------------------------------
+   CMI BLOGGER CUSTOM PROFILE FIELDS
+   --------------------------------------------------------------------------------------------- */
+
+function cmi_add_custom_user_profile_fields( $user ) {
+	?>
+	<h3><?php _e('CMI Blogger Profile Information', 'fukasawa'); ?></h3>
+	<table class="form-table">
+		<tr>
+			<th><label for="cmi_major"><?php _e('Major / Subject'); ?></label></th>
+			<td>
+				<input type="text" name="cmi_major" id="cmi_major" value="<?php echo esc_attr( get_the_author_meta( 'cmi_major', $user->ID ) ); ?>" class="regular-text" /><br />
+				<span class="description"><?php _e('e.g., Computer Science, Economics, Physics'); ?></span>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="cmi_grad_year"><?php _e('Graduation Year'); ?></label></th>
+			<td>
+				<input type="text" name="cmi_grad_year" id="cmi_grad_year" value="<?php echo esc_attr( get_the_author_meta( 'cmi_grad_year', $user->ID ) ); ?>" class="regular-text" /><br />
+				<span class="description"><?php _e('e.g., \'27 or 2027'); ?></span>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="cmi_border_style"><?php _e('Card Border Accent Color'); ?></label></th>
+			<td>
+				<select name="cmi_border_style" id="cmi_border_style">
+					<?php
+					$colors = array(
+						'blue'   => 'Sky Blue (#98CBFF)',
+						'orange' => 'Orange (#FCA019)',
+						'green'  => 'Forest Green (#114A37)',
+						'beige'  => 'Beige (#E9E3CD)',
+						'purple' => 'Purple (#8A2BE2)',
+						'pink'   => 'Pink (#FFB6C1)'
+					);
+					$current = get_the_author_meta( 'cmi_border_style', $user->ID );
+					if ( ! $current ) {
+						$current = 'blue';
+					}
+					foreach ($colors as $val => $label) {
+						echo '<option value="'.esc_attr($val).'" '.selected($current, $val, false).'>'.esc_html($label).'</option>';
+					}
+					?>
+				</select>
+				<br /><span class="description"><?php _e('Select the color style for your writer card.'); ?></span>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="cmi_card_icon"><?php _e('Card Icon'); ?></label></th>
+			<td>
+				<select name="cmi_card_icon" id="cmi_card_icon">
+					<?php
+					$icons = array(
+						'star'     => 'Star',
+						'flower'   => 'Flower',
+						'leaf'     => 'Leaf',
+						'sparkle'  => 'Sparkles',
+						'heart'    => 'Hearts',
+						'wave'     => 'Waves'
+					);
+					$current_icon = get_the_author_meta( 'cmi_card_icon', $user->ID );
+					if ( ! $current_icon ) {
+						$current_icon = 'star';
+					}
+					foreach ($icons as $val => $label) {
+						echo '<option value="'.esc_attr($val).'" '.selected($current_icon, $val, false).'>'.esc_html($label).'</option>';
+					}
+					?>
+				</select>
+				<br /><span class="description"><?php _e('Select the hand-drawn icon style for your writer card.'); ?></span>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="cmi_custom_avatar"><?php _e('Custom Avatar URL (Optional)'); ?></label></th>
+			<td>
+				<input type="text" name="cmi_custom_avatar" id="cmi_custom_avatar" value="<?php echo esc_url( get_the_author_meta( 'cmi_custom_avatar', $user->ID ) ); ?>" class="regular-text" /><br />
+				<span class="description"><?php _e('URL to a custom cartoon or photo avatar (defaults to Gravatar if empty).'); ?></span>
+			</td>
+		</tr>
+	</table>
+	<?php
+}
+add_action( 'show_user_profile', 'cmi_add_custom_user_profile_fields' );
+add_action( 'edit_user_profile', 'cmi_add_custom_user_profile_fields' );
+
+function cmi_save_custom_user_profile_fields( $user_id ) {
+	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+		return false;
+	}
+	update_user_meta( $user_id, 'cmi_major', sanitize_text_field( $_POST['cmi_major'] ) );
+	update_user_meta( $user_id, 'cmi_grad_year', sanitize_text_field( $_POST['cmi_grad_year'] ) );
+	update_user_meta( $user_id, 'cmi_border_style', sanitize_text_field( $_POST['cmi_border_style'] ) );
+	update_user_meta( $user_id, 'cmi_card_icon', sanitize_text_field( $_POST['cmi_card_icon'] ) );
+	update_user_meta( $user_id, 'cmi_custom_avatar', esc_url_raw( $_POST['cmi_custom_avatar'] ) );
+}
+add_action( 'personal_options_update', 'cmi_save_custom_user_profile_fields' );
+add_action( 'edit_user_profile_update', 'cmi_save_custom_user_profile_fields' );
+

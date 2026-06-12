@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------
 
-	Theme Name: Fukasawa
-    Text Domain: fukasawa
+	Theme Name: CMI Student Blogs
+    Text Domain: cmi-student-blogs
 	Theme URI: https://andersnoren.se/teman/fukasawa-wordpress-theme/
 	Version: 2.1.3
 	Description: Fukasawa is a minimal masonry style blog theme for photographers and collectors. It features responsive & retina-ready design, Block Editor support, support for the image, gallery and video post formats, two custom widgets, an archive page template, a gallery slideshow, custom accent color support, custom logo support, editor styles, and much more. Demo: https://andersnoren.se/themes/fukasawa/
@@ -86,10 +86,10 @@ html {
 }
 
 body {
-	background: #f2f2f2;
+	background: #F7F7FF; /* Frosted Yes */
 	border: none;
-	color: #333;
-	font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+	color: #27187D; /* Midnight Vow */
+	font-family: 'Plus Jakarta Sans', 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
 	font-size: 18px;
 }
 
@@ -139,29 +139,17 @@ img {
 
 
 .sidebar {
-	font-size: 0.71em;
-	position: absolute;
-		left: 0;
-		top: 0;
-	padding: 50px 40px;
-	width: 280px;
+	display: none;
 }
 
 .sidebar:before {
-	content: "";
-	display: block;
-	width: 280px;
-	background: #fff;
-	position: fixed;
-	z-index: -1;
-	top: 0;
-	bottom: 0;
-	left: 0;
+	display: none;
 }
 
 .wrapper { 
 	display: block;
-	margin-left: 280px; 
+	margin-left: 0; 
+	padding-top: 80px; /* offset for top header */
 }
 
 .content {
@@ -2729,4 +2717,1312 @@ img#wpstats { display: none; }
 	
 	.archive-nav { margin: 30px 0 25px; }
 
+}
+
+
+/* =================================================================================
+   CMI STUDENT BLOGS CUSTOM STYLES (NEW DESIGN SYSTEM)
+   ================================================================================= */
+
+/* 1. Global / Core Settings -------------------- */
+:root {
+	--cmi-midnight: #27187D;
+	--cmi-frosted: #F7F7FF;
+	--cmi-orange: #FCA019;
+	--cmi-blue: #98CBFF;
+	--cmi-green: #114A37;
+	--cmi-beige: #E9E3CD;
+	--cmi-purple: #8A2BE2;
+	--cmi-pink: #FFB6C1;
+	
+	--font-title: 'Playfair Display', Georgia, serif;
+	--font-sans: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+	--font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+	color: var(--cmi-midnight);
+	background-color: var(--cmi-frosted);
+}
+
+a {
+	color: var(--cmi-midnight);
+	transition: color 0.2s ease, opacity 0.2s ease;
+}
+a:hover {
+	color: var(--cmi-orange);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-title);
+	font-weight: 700;
+	color: var(--cmi-midnight);
+}
+
+
+/* 2. Top Header Navigation -------------------- */
+.site-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 80px;
+	background: rgba(255, 255, 255, 0.85);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border-bottom: 2px solid rgba(39, 24, 125, 0.08);
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	box-shadow: 0 4px 30px rgba(39, 24, 125, 0.03);
+}
+
+.site-header-inner {
+	width: 1200px;
+	max-width: 90%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.site-branding .logo-link {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	text-decoration: none;
+}
+
+.cmi-logo-badge {
+	width: 48px;
+	height: 48px;
+	background: var(--cmi-midnight);
+	color: #fff;
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(39, 24, 125, 0.2);
+	letter-spacing: 1px;
+}
+
+.cmi-logo-img {
+	height: 48px;
+	width: auto;
+	border-radius: 6px;
+}
+
+.site-title-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.site-title-main {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 16px;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	color: var(--cmi-midnight);
+	line-height: 1.2;
+}
+
+.site-title-sub {
+	font-family: var(--font-title);
+	font-style: italic;
+	font-size: 16px;
+	color: var(--cmi-orange);
+	margin-top: 2px;
+}
+
+/* Header Navigation Menu */
+.main-navigation {
+	display: block;
+}
+
+.main-navigation .main-menu {
+	display: flex;
+	gap: 30px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.main-navigation .main-menu li {
+	position: relative;
+}
+
+.main-navigation .main-menu a {
+	font-family: var(--font-sans);
+	font-weight: 500;
+	font-size: 15px;
+	color: var(--cmi-midnight);
+	padding: 8px 0;
+	display: inline-block;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.main-navigation .main-menu a:hover {
+	color: var(--cmi-orange);
+}
+
+.main-navigation .main-menu li.current-menu-item a,
+.main-navigation .main-menu li.current-page-ancestor a {
+	color: var(--cmi-orange);
+	font-weight: 700;
+}
+
+.main-navigation .main-menu li.current-menu-item a::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: var(--cmi-orange);
+	border-radius: 2px;
+}
+
+/* Hamburger toggle for Mobile */
+.nav-toggle {
+	display: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+}
+
+.nav-toggle .bars {
+	width: 24px;
+	height: 18px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.nav-toggle .bar {
+	width: 100%;
+	height: 2.5px;
+	background-color: var(--cmi-midnight);
+	border-radius: 2px;
+	transition: all 0.3s ease;
+}
+
+.nav-toggle.active .bar:nth-child(1) {
+	transform: translateY(8px) rotate(45deg);
+}
+.nav-toggle.active .bar:nth-child(2) {
+	opacity: 0;
+}
+.nav-toggle.active .bar:nth-child(3) {
+	transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile dropdown navigation menu */
+.mobile-navigation {
+	display: none;
+	position: fixed;
+	top: 80px;
+	left: 0;
+	width: 100%;
+	background: #fff;
+	border-bottom: 2px solid var(--cmi-midnight);
+	z-index: 999;
+	box-shadow: 0 8px 30px rgba(39, 24, 125, 0.08);
+}
+
+.mobile-navigation .mobile-menu {
+	list-style: none;
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.mobile-navigation .mobile-menu a {
+	font-family: var(--font-sans);
+	font-weight: 600;
+	font-size: 16px;
+	text-transform: uppercase;
+	color: var(--cmi-midnight);
+	display: block;
+	padding: 5px 0;
+}
+
+.mobile-navigation .mobile-menu a:hover {
+	color: var(--cmi-orange);
+}
+
+
+/* 3. Homepage Layout & Columns -------------------- */
+.cmi-home-container {
+	width: 1200px;
+	max-width: 90%;
+	margin: 40px auto 60px;
+}
+
+.cmi-columns-wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 40px;
+}
+
+.cmi-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.cmi-column-title {
+	font-family: var(--font-title);
+	font-weight: 700;
+	font-size: 26px;
+	margin-bottom: 25px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid var(--cmi-midnight);
+	position: relative;
+	color: var(--cmi-midnight);
+}
+
+.cmi-column-title::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 40px;
+	height: 3px;
+	background-color: var(--cmi-orange);
+}
+
+.cmi-column-posts {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+
+
+/* 4. Post Card Layout -------------------- */
+.cmi-card {
+	background: #ffffff;
+	border: 1px solid rgba(39, 24, 125, 0.08);
+	border-radius: 12px;
+	padding: 20px;
+	box-shadow: 0 4px 20px rgba(39, 24, 125, 0.02);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 180px;
+	transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+	position: relative;
+}
+
+.cmi-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 12px;
+	box-shadow: 0 10px 30px rgba(39, 24, 125, 0.08);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: -1;
+}
+
+.cmi-card:hover {
+	transform: translateY(-4px);
+	border-color: rgba(39, 24, 125, 0.15);
+}
+
+.cmi-card:hover::before {
+	opacity: 1;
+}
+
+.cmi-card-body {
+	margin-bottom: 20px;
+}
+
+.cmi-card-link-wrapper {
+	text-decoration: none;
+	display: block;
+}
+
+.cmi-card-title {
+	font-family: var(--font-title);
+	font-size: 19px;
+	line-height: 1.4;
+	font-weight: 700;
+	margin-bottom: 8px;
+	color: var(--cmi-midnight);
+}
+
+.cmi-card-excerpt {
+	font-family: var(--font-body);
+	font-size: 14px;
+	line-height: 1.5;
+	color: #605B80;
+	margin: 0;
+}
+
+/* Post Card Footer (Author Details Bottom Right) */
+.cmi-card-footer {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.cmi-card-author {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	text-decoration: none;
+}
+
+.cmi-author-name {
+	font-family: var(--font-sans);
+	font-weight: 600;
+	font-size: 13px;
+	color: var(--cmi-midnight);
+}
+
+.cmi-author-avatar {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1.5px solid var(--cmi-blue);
+	background: #fff;
+}
+
+
+/* 5. Single Post Page (2-column layout) -------------------- */
+.cmi-single-container {
+	width: 1100px;
+	max-width: 90%;
+	margin: 50px auto 70px;
+}
+
+.cmi-single-header {
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.cmi-single-title {
+	font-family: var(--font-title);
+	font-size: 42px;
+	line-height: 1.2;
+	color: var(--cmi-midnight);
+	margin-bottom: 15px;
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.cmi-single-byline {
+	font-family: var(--font-sans);
+	font-size: 15px;
+	color: #605B80;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.cmi-byline-author {
+	font-weight: 700;
+	color: var(--cmi-orange);
+}
+
+.cmi-single-featured-image {
+	width: 100%;
+	max-height: 500px;
+	overflow: hidden;
+	border-radius: 16px;
+	margin-bottom: 50px;
+	box-shadow: 0 15px 40px rgba(39, 24, 125, 0.05);
+}
+
+.cmi-single-featured-image img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.cmi-single-layout {
+	display: grid;
+	grid-template-columns: 1fr 320px;
+	gap: 60px;
+	align-items: start;
+}
+
+/* Post Content */
+.cmi-single-content-area {
+	min-width: 0; /* prevent grid blowouts */
+}
+
+.cmi-single-article {
+	background: #fff;
+	border: 1px solid rgba(39, 24, 125, 0.05);
+	border-radius: 16px;
+	padding: 40px;
+	box-shadow: 0 4px 30px rgba(39, 24, 125, 0.02);
+	margin-bottom: 40px;
+}
+
+.cmi-article-entry {
+	font-family: var(--font-body);
+	font-size: 18px;
+	line-height: 1.8;
+	color: var(--cmi-midnight);
+}
+
+.cmi-article-entry p {
+	margin-bottom: 25px;
+}
+
+.cmi-article-entry h2, 
+.cmi-article-entry h3 {
+	margin-top: 40px;
+	margin-bottom: 20px;
+	font-family: var(--font-title);
+}
+
+.cmi-article-entry h2 { font-size: 28px; }
+.cmi-article-entry h3 { font-size: 22px; }
+
+/* Social Sharing Bar */
+.cmi-share-bar {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	margin-top: 40px;
+	padding-top: 25px;
+	border-top: 1px solid rgba(39, 24, 125, 0.08);
+}
+
+.cmi-share-label {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.cmi-share-links {
+	display: flex;
+	gap: 10px;
+}
+
+.cmi-share-link {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: var(--cmi-frosted);
+	color: var(--cmi-midnight);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+}
+
+.cmi-share-link svg {
+	width: 16px;
+	height: 16px;
+}
+
+.cmi-share-link:hover {
+	color: #fff;
+	transform: translateY(-2px);
+}
+
+.cmi-share-x:hover { background: #000000; }
+.cmi-share-reddit:hover { background: #FF4500; }
+.cmi-share-facebook:hover { background: #1877F2; }
+.cmi-share-telegram:hover { background: #0088cc; }
+
+
+/* Sidebar & Widgets */
+.cmi-single-sidebar {
+	position: sticky;
+	top: 110px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.cmi-sidebar-widget {
+	background: #fff;
+	border: 1px solid rgba(39, 24, 125, 0.05);
+	border-radius: 12px;
+	padding: 24px;
+	box-shadow: 0 4px 20px rgba(39, 24, 125, 0.02);
+}
+
+.cmi-sidebar-widget .cmi-widget-title {
+	font-family: var(--font-sans);
+	font-size: 15px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 20px;
+	padding-bottom: 8px;
+	border-bottom: 1.5px solid var(--cmi-midnight);
+	color: var(--cmi-midnight);
+}
+
+/* Author widget in sidebar */
+.cmi-author-widget-header {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	margin-bottom: 15px;
+}
+
+.cmi-author-widget-avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid var(--cmi-blue);
+}
+
+.cmi-author-widget-name {
+	font-family: var(--font-title);
+	font-size: 18px;
+	margin: 0;
+	font-weight: 700;
+}
+
+.cmi-author-widget-name a {
+	text-decoration: none;
+	color: var(--cmi-midnight);
+}
+
+.cmi-author-widget-major {
+	font-family: var(--font-sans);
+	font-size: 12px;
+	color: #605B80;
+	margin-top: 2px;
+	text-transform: uppercase;
+}
+
+.cmi-author-widget-bio {
+	font-family: var(--font-body);
+	font-size: 14px;
+	line-height: 1.6;
+	color: #605B80;
+	margin-bottom: 15px;
+}
+
+.cmi-author-widget-link {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 13px;
+	text-transform: uppercase;
+	color: var(--cmi-orange);
+	text-decoration: none;
+}
+
+.cmi-author-widget-link:hover {
+	text-decoration: underline;
+}
+
+/* More from Author list */
+.cmi-more-posts-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.cmi-more-post-date {
+	display: block;
+	font-family: var(--font-sans);
+	font-size: 11px;
+	color: #908CAF;
+	text-transform: uppercase;
+	margin-bottom: 2px;
+}
+
+.cmi-more-post-title {
+	font-family: var(--font-title);
+	font-size: 15px;
+	line-height: 1.4;
+	font-weight: 700;
+	color: var(--cmi-midnight);
+	text-decoration: none;
+	display: block;
+}
+
+.cmi-more-post-title:hover {
+	color: var(--cmi-orange);
+}
+
+
+/* Related Posts: Also on CMI */
+.cmi-related-posts-section {
+	margin-top: 50px;
+	margin-bottom: 40px;
+}
+
+.cmi-related-title {
+	font-family: var(--font-title);
+	font-size: 24px;
+	font-weight: 700;
+	margin-bottom: 25px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid var(--cmi-midnight);
+}
+
+.cmi-related-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+}
+
+.cmi-related-card {
+	background: #fff;
+	border: 1px solid rgba(39, 24, 125, 0.05);
+	border-radius: 8px;
+	overflow: hidden;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cmi-related-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(39, 24, 125, 0.05);
+}
+
+.cmi-related-card-link {
+	text-decoration: none;
+	display: block;
+}
+
+.cmi-related-thumbnail {
+	width: 100%;
+	height: 110px;
+	overflow: hidden;
+	background-color: var(--cmi-frosted);
+}
+
+.cmi-related-thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.cmi-related-thumbnail-placeholder {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(135deg, var(--cmi-blue) 0%, var(--cmi-beige) 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cmi-related-meta {
+	padding: 12px 12px 2px;
+	font-family: var(--font-sans);
+	font-size: 11px;
+	color: #908CAF;
+	text-transform: uppercase;
+}
+
+.cmi-related-title {
+	font-family: var(--font-title);
+	font-size: 14px;
+	line-height: 1.4;
+	font-weight: 700;
+	color: var(--cmi-midnight);
+	padding: 0 12px 15px;
+	margin: 0;
+}
+
+
+/* 6. Meet Our Writers Page -------------------- */
+.cmi-writers-container {
+	width: 1100px;
+	max-width: 90%;
+	margin: 60px auto 80px;
+}
+
+.cmi-writers-header {
+	text-align: center;
+	margin-bottom: 45px;
+	position: relative;
+}
+
+.cmi-writer-doodle-decoration {
+	width: 100px;
+	height: 20px;
+	margin: 0 auto 10px;
+}
+
+.cmi-writers-title {
+	font-family: var(--font-title);
+	font-size: 44px;
+	margin-bottom: 12px;
+}
+
+.cmi-writers-subtitle {
+	font-family: var(--font-body);
+	font-size: 17px;
+	color: #605B80;
+	max-width: 600px;
+	margin: 0 auto;
+	line-height: 1.6;
+}
+
+/* Live Search bar */
+.cmi-search-wrapper {
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+.cmi-search-box {
+	position: relative;
+	width: 500px;
+	max-width: 100%;
+}
+
+.cmi-search-box input {
+	width: 100%;
+	padding: 15px 20px 15px 50px;
+	border: 2px solid var(--cmi-midnight);
+	border-radius: 30px;
+	font-family: var(--font-sans);
+	font-size: 16px;
+	color: var(--cmi-midnight);
+	outline: none;
+	box-shadow: 0 4px 20px rgba(39, 24, 125, 0.03);
+	transition: all 0.3s ease;
+}
+
+.cmi-search-box input:focus {
+	border-color: var(--cmi-orange);
+	box-shadow: 0 6px 25px rgba(252, 160, 25, 0.1);
+}
+
+.cmi-search-icon {
+	position: absolute;
+	left: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--cmi-midnight);
+	display: flex;
+	align-items: center;
+}
+
+.cmi-search-icon svg {
+	width: 18px;
+	height: 18px;
+}
+
+/* Writers Grid */
+.cmi-writers-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 30px;
+}
+
+/* Hand-drawn sketchy border cards style */
+.cmi-writer-card {
+	position: relative;
+	background: #ffffff;
+	border: 2.5px solid var(--cmi-midnight);
+	padding: 24px;
+	min-height: 220px;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cmi-writer-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(39, 24, 125, 0.05);
+}
+
+.cmi-writer-card-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+	height: 100%;
+}
+
+.cmi-writer-card-inner {
+	display: flex;
+	gap: 24px;
+	height: 100%;
+	align-items: center;
+}
+
+.cmi-writer-avatar-wrapper {
+	flex-shrink: 0;
+}
+
+.cmi-writer-avatar {
+	width: 110px;
+	height: 110px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid var(--cmi-midnight);
+}
+
+.cmi-writer-info {
+	flex-grow: 1;
+	min-width: 0;
+}
+
+.cmi-writer-name {
+	font-family: var(--font-title);
+	font-size: 22px;
+	font-weight: 700;
+	margin: 0 0 4px;
+	color: var(--cmi-midnight);
+}
+
+.cmi-writer-major {
+	font-family: var(--font-sans);
+	font-size: 13px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: var(--cmi-midnight);
+	letter-spacing: 0.5px;
+	margin-bottom: 10px;
+}
+
+.cmi-writer-bio {
+	font-family: var(--font-body);
+	font-size: 13.5px;
+	line-height: 1.5;
+	color: #605B80;
+	margin: 0 0 15px;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.cmi-writer-stats {
+	display: flex;
+	gap: 20px;
+	font-family: var(--font-sans);
+	font-size: 12.5px;
+}
+
+.cmi-stat-item {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--cmi-midnight);
+}
+
+.cmi-stat-icon {
+	width: 14px;
+	height: 14px;
+	color: var(--cmi-midnight);
+}
+
+/* Doodle Icon Overlay Top-Right */
+.cmi-card-doodle-wrapper {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 28px;
+	height: 28px;
+	opacity: 0.8;
+	pointer-events: none;
+}
+
+.cmi-card-doodle-wrapper svg {
+	width: 100%;
+	height: 100%;
+}
+
+/* Sketchy Borders & Colors (CSS Border-radius Hacks) */
+.cmi-card-style-blue {
+	border-color: var(--cmi-blue);
+	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* style 1 */
+	background-color: rgba(152, 203, 255, 0.06);
+}
+.cmi-card-style-blue .cmi-writer-avatar { border-color: var(--cmi-blue); }
+.cmi-card-style-blue .cmi-card-doodle-wrapper { color: var(--cmi-blue); }
+
+.cmi-card-style-orange {
+	border-color: var(--cmi-orange);
+	border-radius: 20px 50px 20px 50px/50px 20px 50px 20px; /* style 2 */
+	background-color: rgba(252, 160, 25, 0.05);
+}
+.cmi-card-style-orange .cmi-writer-avatar { border-color: var(--cmi-orange); }
+.cmi-card-style-orange .cmi-card-doodle-wrapper { color: var(--cmi-orange); }
+
+.cmi-card-style-green {
+	border-color: var(--cmi-green);
+	border-radius: 60px 20px 60px 20px/20px 60px 20px 60px; /* style 3 */
+	background-color: rgba(17, 74, 55, 0.05);
+}
+.cmi-card-style-green .cmi-writer-avatar { border-color: var(--cmi-green); }
+.cmi-card-style-green .cmi-card-doodle-wrapper { color: var(--cmi-green); }
+
+.cmi-card-style-beige {
+	border-color: var(--cmi-beige);
+	border-radius: 30px 30px 40px 40px/40px 40px 30px 30px; /* style 4 */
+	background-color: rgba(233, 227, 205, 0.08);
+}
+.cmi-card-style-beige .cmi-writer-avatar { border-color: var(--cmi-beige); }
+.cmi-card-style-beige .cmi-card-doodle-wrapper { color: var(--cmi-beige); }
+
+.cmi-card-style-purple {
+	border-color: var(--cmi-purple);
+	border-radius: 15px 225px 15px 255px/255px 15px 225px 15px; /* style 5 */
+	background-color: rgba(138, 43, 226, 0.04);
+}
+.cmi-card-style-purple .cmi-writer-avatar { border-color: var(--cmi-purple); }
+.cmi-card-style-purple .cmi-card-doodle-wrapper { color: var(--cmi-purple); }
+
+.cmi-card-style-pink {
+	border-color: var(--cmi-pink);
+	border-radius: 40px 10px 40px 10px/10px 40px 10px 40px; /* style 6 */
+	background-color: rgba(255, 182, 193, 0.07);
+}
+.cmi-card-style-pink .cmi-writer-avatar { border-color: var(--cmi-pink); }
+.cmi-card-style-pink .cmi-card-doodle-wrapper { color: var(--cmi-pink); }
+
+
+/* 7. Author Archive Profile Page -------------------- */
+.cmi-author-archive-container {
+	width: 1000px;
+	max-width: 90%;
+	margin: 50px auto 70px;
+}
+
+.cmi-author-profile-block {
+	background: #fff;
+	border: 1px solid rgba(39, 24, 125, 0.06);
+	border-radius: 16px;
+	padding: 40px;
+	box-shadow: 0 8px 30px rgba(39, 24, 125, 0.02);
+	margin-bottom: 50px;
+}
+
+.cmi-author-profile-inner {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.cmi-author-profile-main {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.cmi-author-profile-avatar {
+	width: 130px;
+	height: 130px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 4px solid var(--cmi-blue);
+	box-shadow: 0 4px 15px rgba(39, 24, 125, 0.1);
+}
+
+.cmi-author-profile-name {
+	font-family: var(--font-title);
+	font-size: 36px;
+	margin: 0 0 5px;
+	color: var(--cmi-midnight);
+}
+
+.cmi-author-profile-major {
+	font-family: var(--font-sans);
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: var(--cmi-orange);
+	margin: 0 0 15px;
+	letter-spacing: 0.5px;
+}
+
+.cmi-profile-stats {
+	display: flex;
+	gap: 25px;
+}
+
+.cmi-profile-stat {
+	font-family: var(--font-sans);
+	font-size: 14px;
+	color: #605B80;
+	text-transform: uppercase;
+}
+
+.cmi-profile-stat strong {
+	color: var(--cmi-midnight);
+	font-size: 16px;
+}
+
+.cmi-author-profile-bio {
+	border-top: 1px solid rgba(39, 24, 125, 0.08);
+	padding-top: 25px;
+}
+
+.cmi-bio-title {
+	font-family: var(--font-sans);
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 10px;
+	color: var(--cmi-midnight);
+}
+
+.cmi-bio-content {
+	font-family: var(--font-body);
+	font-size: 16px;
+	line-height: 1.7;
+	color: #605B80;
+}
+
+/* Recent Posts List in Author Page */
+.cmi-author-posts-section {
+	margin-top: 40px;
+}
+
+.cmi-section-title {
+	font-family: var(--font-title);
+	font-size: 26px;
+	margin-bottom: 30px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid var(--cmi-midnight);
+}
+
+.cmi-author-post-item {
+	background: #fff;
+	border: 1px solid rgba(39, 24, 125, 0.05);
+	border-radius: 12px;
+	padding: 24px;
+	margin-bottom: 25px;
+	display: flex;
+	gap: 25px;
+	box-shadow: 0 4px 20px rgba(39, 24, 125, 0.01);
+	transition: transform 0.2s ease;
+}
+
+.cmi-author-post-item:hover {
+	transform: translateY(-2px);
+}
+
+.cmi-author-post-thumbnail {
+	width: 200px;
+	height: 140px;
+	border-radius: 8px;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.cmi-author-post-thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.cmi-author-post-details {
+	flex-grow: 1;
+}
+
+.cmi-author-post-title {
+	font-family: var(--font-title);
+	font-size: 22px;
+	margin: 0 0 8px;
+}
+
+.cmi-author-post-title a {
+	text-decoration: none;
+	color: var(--cmi-midnight);
+}
+
+.cmi-author-post-title a:hover {
+	color: var(--cmi-orange);
+}
+
+.cmi-author-post-meta {
+	font-family: var(--font-sans);
+	font-size: 12px;
+	color: #908CAF;
+	text-transform: uppercase;
+	margin-bottom: 12px;
+}
+
+.cmi-author-post-excerpt {
+	font-family: var(--font-body);
+	font-size: 14.5px;
+	line-height: 1.6;
+	color: #605B80;
+	margin-bottom: 15px;
+}
+
+.cmi-author-post-readmore {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 13px;
+	text-transform: uppercase;
+	color: var(--cmi-orange);
+	text-decoration: none;
+}
+
+
+/* 8. Divided Footer Styling -------------------- */
+.site-footer {
+	background: var(--cmi-midnight);
+	color: rgba(255, 255, 255, 0.7);
+	padding: 50px 0;
+	border-top: 3px solid var(--cmi-orange);
+}
+
+.site-footer-inner {
+	width: 1200px;
+	max-width: 90%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	gap: 60px;
+}
+
+.footer-left {
+	flex: 1 1 50%;
+}
+
+.footer-disclaimer {
+	font-family: var(--font-body);
+	font-size: 13px;
+	line-height: 1.6;
+	margin-bottom: 20px;
+	color: rgba(247, 247, 255, 0.65);
+}
+
+.footer-copyright {
+	font-family: var(--font-sans);
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.footer-copyright a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.footer-copyright a:hover {
+	color: var(--cmi-orange);
+}
+
+.footer-right {
+	flex: 1 1 40%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.footer-quote {
+	font-family: var(--font-title);
+	font-size: 20px;
+	font-style: italic;
+	color: #fff;
+	line-height: 1.4;
+	text-align: right;
+	max-width: 320px;
+	border-right: 3px solid var(--cmi-orange);
+	padding-right: 20px;
+}
+
+
+/* =================================================================================
+   CMI RESPONSIVE MEDIA OVERRIDES
+   ================================================================================= */
+
+@media (max-width: 1150px) {
+	.cmi-columns-wrapper {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+	.cmi-single-layout {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+	.cmi-single-sidebar {
+		position: static;
+	}
+}
+
+@media (max-width: 960px) {
+	.cmi-columns-wrapper {
+		grid-template-columns: 1fr;
+		gap: 45px;
+	}
+	.cmi-writers-grid {
+		grid-template-columns: 1fr;
+	}
+	.cmi-related-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.site-footer-inner {
+		flex-direction: column;
+		gap: 30px;
+	}
+	.footer-right {
+		justify-content: flex-start;
+	}
+	.footer-quote {
+		text-align: left;
+		border-right: none;
+		border-left: 3px solid var(--cmi-orange);
+		padding-right: 0;
+		padding-left: 20px;
+	}
+}
+
+@media (max-width: 780px) {
+	.main-navigation {
+		display: none;
+	}
+	.nav-toggle {
+		display: block;
+	}
+	.cmi-single-title {
+		font-size: 30px;
+	}
+	.cmi-single-article {
+		padding: 20px;
+	}
+	.cmi-author-profile-main {
+		flex-direction: column;
+		text-align: center;
+	}
+	.cmi-profile-stats {
+		justify-content: center;
+	}
+	.cmi-author-post-item {
+		flex-direction: column;
+	}
+	.cmi-author-post-thumbnail {
+		width: 100%;
+		height: 200px;
+	}
+}
+
+@media (max-width: 600px) {
+	.cmi-writer-card-inner {
+		flex-direction: column;
+		text-align: center;
+		padding-top: 15px;
+	}
+	.cmi-writer-stats {
+		justify-content: center;
+	}
+	.cmi-related-grid {
+		grid-template-columns: 1fr;
+	}
 }
